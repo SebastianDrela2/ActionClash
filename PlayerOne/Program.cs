@@ -1,4 +1,6 @@
-﻿using System.IO.Pipes;
+﻿using Newtonsoft.Json;
+using RandomFight.Charachter;
+using System.IO.Pipes;
 
 namespace PlayerOne
 {
@@ -20,19 +22,55 @@ namespace PlayerOne
             namedPipeServerStream.WaitForConnection();
             Console.WriteLine("Connected.");
 
-            using var streamReader = new StreamReader(namedPipeClientStream);
-            using var streamWriter = new StreamWriter(namedPipeServerStream);
+            try
+            {
+                using var streamReader = new StreamReader(namedPipeClientStream);
+                using var streamWriter = new StreamWriter(namedPipeServerStream);
 
-            while (true)
-            {                
-                var message = streamReader.ReadLine();
-                Thread.Sleep(1000);
+                var charachter = new Charachter();
 
-                Console.WriteLine($"{message}");
+                while (true)
+                {
+                    var message = streamReader.ReadLine();
+                    var enemyCharachter = JsonConvert.DeserializeObject<Charachter>(message!)!;
 
-                streamWriter.WriteLine("Response 2");
-                streamWriter.Flush();               
+                    var totalDamage = enemyCharachter.Damage - charachter.Armor;
+                    charachter.HealthPoints -= totalDamage;
+
+                    var json = JsonConvert.SerializeObject(charachter);
+
+                    Thread.Sleep(1000);
+
+                    Console.WriteLine($"Took {totalDamage} left {charachter.HealthPoints}");
+
+
+                    if (enemyCharachter.HealthPoints < 0)
+                    {
+                        Console.WriteLine("You won");
+
+                        break;
+                    }
+
+                    if (charachter.HealthPoints < 0)
+                    {
+                        Console.WriteLine("You Lost");
+
+                        streamWriter.WriteLine(charachter);
+                        streamWriter.Flush();
+
+                        break;
+                    }
+
+                    streamWriter.WriteLine(json);
+                    streamWriter.Flush();
+                }
             }
+            catch
+            {
+
+            }
+
+            Console.ReadKey();
         }
     }
 }

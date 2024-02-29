@@ -1,4 +1,6 @@
-﻿using System.IO.Pipes;
+﻿using Newtonsoft.Json;
+using RandomFight.Charachter;
+using System.IO.Pipes;
 using System.Threading.Channels;
 
 namespace PlayerTwo
@@ -22,18 +24,53 @@ namespace PlayerTwo
 
             Console.WriteLine("Connected.");
 
-            using var streamReader = new StreamReader(namedPipeClientStream);
-            using var streamWriter = new StreamWriter(namedPipeServerStream);
+            try
+            {
+                using var streamReader = new StreamReader(namedPipeClientStream);
+                using var streamWriter = new StreamWriter(namedPipeServerStream);
 
-            while (true)
-            {               
-                streamWriter.WriteLine("Response 1");
-                streamWriter.Flush();
-               
-                var message = streamReader.ReadLine();
-                Thread.Sleep(1000);
-                Console.WriteLine($"{message}");              
+                var charachter = new Charachter();
+
+                while (true)
+                {
+                    var json = JsonConvert.SerializeObject(charachter);
+
+                    streamWriter.WriteLine(json);
+                    streamWriter.Flush();
+
+                    var message = streamReader.ReadLine();
+                    var enemyCharachter = JsonConvert.DeserializeObject<Charachter>(message!)!;
+
+                    var totalDamage = enemyCharachter.Damage - charachter.Armor;
+                    charachter.HealthPoints -= totalDamage;
+
+                    Thread.Sleep(1000);
+                    Console.WriteLine($"Took {totalDamage} left {charachter.HealthPoints}");
+
+                    if (enemyCharachter.HealthPoints < 0)
+                    {
+                        Console.WriteLine("You won");
+
+                        break;
+                    }
+
+                    if (charachter.HealthPoints < 0)
+                    {
+                        Console.WriteLine("You Lost");
+
+                        streamWriter.WriteLine(json);
+                        streamWriter.Flush();
+
+                        break;
+                    }
+                }
             }
+            catch
+            {
+
+            }
+
+            Console.ReadKey();
         }
     }
 }
