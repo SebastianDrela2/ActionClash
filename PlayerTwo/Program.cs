@@ -30,6 +30,7 @@ namespace PlayerTwo
                 using var streamWriter = new StreamWriter(namedPipeServerStream);
 
                 var charachter = new Charachter();
+                Console.WriteLine($"PlayerTwo HP: {charachter.HealthPoints} Armor: {charachter.Armor}");
 
                 while (true)
                 {
@@ -40,23 +41,25 @@ namespace PlayerTwo
 
                     var message = streamReader.ReadLine();
                     var enemyCharachter = JsonConvert.DeserializeObject<Charachter>(message!)!;
+                    var attackInformation = new AttackInformation();
 
-                    var totalDamage = enemyCharachter.Damage - charachter.Armor;
-                    charachter.HealthPoints -= totalDamage;
+                    var totalDamage = attackInformation.Damage - enemyCharachter.Armor;
+                    enemyCharachter.HealthPoints -= totalDamage;
 
-                    Thread.Sleep(1000);
+                    Console.WriteLine($"Got hit with {attackInformation.Type}!");
+                    Thread.Sleep(1000);                   
                     Console.WriteLine($"Took {totalDamage} left {charachter.HealthPoints}");
 
                     if (enemyCharachter.HealthPoints < 0)
                     {
-                        Console.WriteLine("You won");
+                        Console.WriteLine("PlayerTwo won");
 
                         break;
                     }
 
                     if (charachter.HealthPoints < 0)
                     {
-                        Console.WriteLine("You Lost");
+                        Console.WriteLine("PlayerTwo Lost");
 
                         streamWriter.WriteLine(json);
                         streamWriter.Flush();

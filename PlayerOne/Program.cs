@@ -29,31 +29,34 @@ namespace PlayerOne
 
                 var charachter = new Charachter();
 
+                Console.WriteLine($"PlayerOne HP: {charachter.HealthPoints} Armor: {charachter.Armor}");
+
                 while (true)
                 {
                     var message = streamReader.ReadLine();
                     var enemyCharachter = JsonConvert.DeserializeObject<Charachter>(message!)!;
 
-                    var totalDamage = enemyCharachter.Damage - charachter.Armor;
+                    var attackInformation = new AttackInformation();
+                    var totalDamage = attackInformation.Damage - charachter.Armor;                    
                     charachter.HealthPoints -= totalDamage;
 
                     var json = JsonConvert.SerializeObject(charachter);
 
+                    Console.WriteLine($"Got hit with {attackInformation.Type}!");
                     Thread.Sleep(1000);
-
                     Console.WriteLine($"Took {totalDamage} left {charachter.HealthPoints}");
 
 
                     if (enemyCharachter.HealthPoints < 0)
                     {
-                        Console.WriteLine("You won");
+                        Console.WriteLine("PlayerOne won");
 
                         break;
                     }
 
                     if (charachter.HealthPoints < 0)
                     {
-                        Console.WriteLine("You Lost");
+                        Console.WriteLine("PlayerOne Lost");
 
                         streamWriter.WriteLine(charachter);
                         streamWriter.Flush();
