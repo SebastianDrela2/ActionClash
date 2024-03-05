@@ -58,15 +58,19 @@ namespace PlayerOne
             var message = streamReader.ReadLine();
             var enemyCharachter = JsonConvert.DeserializeObject<Charachter>(message!)!;
 
-            var attackInformation = new AttackInformation();
-            var totalDamage = attackInformation.Damage - charachter.Armor;
-            charachter.HealthPoints -= totalDamage;
+            var currentCharachterHp = charachter.HealthPoints;
+
+            charachter.ManageEnemyCharachter(enemyCharachter);
+
+            var charachterHpAfterAttack = charachter.HealthPoints;
+            var totalDamage = currentCharachterHp - charachterHpAfterAttack;                   
+          
+            Console.WriteLine($"Got hit with {enemyCharachter.AttackType}!");
+            Thread.Sleep(1000);
+            Console.WriteLine($"Took {totalDamage} left {charachter.HealthPoints} HP");
+            charachter.PrepareNewAttack();
 
             var json = JsonConvert.SerializeObject(charachter);
-
-            Console.WriteLine($"Got hit with {attackInformation.Type}!");
-            Thread.Sleep(1000);
-            Console.WriteLine($"Took {totalDamage} left {charachter.HealthPoints}");
 
 
             if (enemyCharachter.HealthPoints < 0)

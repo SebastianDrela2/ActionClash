@@ -15,11 +15,11 @@
 
         private readonly Dictionary<string, int> _embeddedAttacks = new Dictionary<string, int>()
         {
-            { "Rock", 2},
-            { "Snowball", 5},
-            { "FireBall", 10},
-            { "Sword", 20},
-            { "DarkMagic", 30 },       
+            { "Rock", 5 },
+            { "Snowball", 10 },
+            { "FireBall", 20 },
+            { "Sword", 40 },
+            { "DarkMagic", 60 },       
         };
 
         private KeyValuePair<string,int> GetAttackInformation()

@@ -60,14 +60,18 @@ namespace PlayerTwo
         {
             var message = streamReader.ReadLine();
             var enemyCharachter = JsonConvert.DeserializeObject<Charachter>(message!)!;
-            var attackInformation = new AttackInformation();
+            var currentCharachterHp = charachter.HealthPoints;
 
-            var totalDamage = attackInformation.Damage - enemyCharachter.Armor;
-            charachter.HealthPoints -= totalDamage;
+            charachter.ManageEnemyCharachter(enemyCharachter);
 
-            Console.WriteLine($"Got hit with {attackInformation.Type}!");
+            var charachterHpAfterAttack = charachter.HealthPoints;
+            var totalDamage = currentCharachterHp - charachterHpAfterAttack;  
+            
+            Console.WriteLine($"Got hit with {enemyCharachter.AttackType}!");
             Thread.Sleep(1000);
-            Console.WriteLine($"Took {totalDamage} left {charachter.HealthPoints}");
+            Console.WriteLine($"Took {totalDamage} left {charachter.HealthPoints} HP");
+
+            charachter.PrepareNewAttack();
 
             if (enemyCharachter.HealthPoints < 0)
             {
