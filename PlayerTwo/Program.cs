@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RandomFight.Charachter;
+using System.IO;
 using System.IO.Pipes;
 using System.Threading.Channels;
 
@@ -39,31 +40,10 @@ namespace PlayerTwo
                     streamWriter.WriteLine(json);
                     streamWriter.Flush();
 
-                    var message = streamReader.ReadLine();
-                    var enemyCharachter = JsonConvert.DeserializeObject<Charachter>(message!)!;
-                    var attackInformation = new AttackInformation();
+                    var handle = Handle(streamReader, streamWriter, charachter, json);
 
-                    var totalDamage = attackInformation.Damage - enemyCharachter.Armor;
-                    enemyCharachter.HealthPoints -= totalDamage;
-
-                    Console.WriteLine($"Got hit with {attackInformation.Type}!");
-                    Thread.Sleep(1000);                   
-                    Console.WriteLine($"Took {totalDamage} left {charachter.HealthPoints}");
-
-                    if (enemyCharachter.HealthPoints < 0)
+                    if (!handle)
                     {
-                        Console.WriteLine("PlayerTwo won");
-
-                        break;
-                    }
-
-                    if (charachter.HealthPoints < 0)
-                    {
-                        Console.WriteLine("PlayerTwo Lost");
-
-                        streamWriter.WriteLine(json);
-                        streamWriter.Flush();
-
                         break;
                     }
                 }
@@ -74,6 +54,39 @@ namespace PlayerTwo
             }
 
             Console.ReadKey();
+        }
+
+        private static bool Handle(StreamReader streamReader, StreamWriter streamWriter, Charachter charachter, string json)
+        {
+            var message = streamReader.ReadLine();
+            var enemyCharachter = JsonConvert.DeserializeObject<Charachter>(message!)!;
+            var attackInformation = new AttackInformation();
+
+            var totalDamage = attackInformation.Damage - enemyCharachter.Armor;
+            charachter.HealthPoints -= totalDamage;
+
+            Console.WriteLine($"Got hit with {attackInformation.Type}!");
+            Thread.Sleep(1000);
+            Console.WriteLine($"Took {totalDamage} left {charachter.HealthPoints}");
+
+            if (enemyCharachter.HealthPoints < 0)
+            {
+                Console.WriteLine("PlayerTwo won");
+
+                return false;
+            }
+
+            if (charachter.HealthPoints < 0)
+            {
+                Console.WriteLine("PlayerTwo Lost");
+
+                streamWriter.WriteLine(json);
+                streamWriter.Flush();
+
+                return false;
+            }
+
+            return true;
         }
     }
 }

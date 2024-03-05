@@ -25,7 +25,7 @@
         private KeyValuePair<string,int> GetAttackInformation()
         {
             var random = new Random();
-            var index = random.Next(1, _embeddedAttacks.Count);
+            var index = random.Next(0, _embeddedAttacks.Count);
 
             var kvp = _embeddedAttacks.ElementAt(index);
 

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RandomFight.Charachter;
+using System.IO;
 using System.IO.Pipes;
 
 namespace PlayerOne
@@ -33,34 +34,10 @@ namespace PlayerOne
 
                 while (true)
                 {
-                    var message = streamReader.ReadLine();
-                    var enemyCharachter = JsonConvert.DeserializeObject<Charachter>(message!)!;
+                    var (json, handle) = Handle(streamReader, streamWriter, charachter);
 
-                    var attackInformation = new AttackInformation();
-                    var totalDamage = attackInformation.Damage - charachter.Armor;                    
-                    charachter.HealthPoints -= totalDamage;
-
-                    var json = JsonConvert.SerializeObject(charachter);
-
-                    Console.WriteLine($"Got hit with {attackInformation.Type}!");
-                    Thread.Sleep(1000);
-                    Console.WriteLine($"Took {totalDamage} left {charachter.HealthPoints}");
-
-
-                    if (enemyCharachter.HealthPoints < 0)
+                    if (!handle)
                     {
-                        Console.WriteLine("PlayerOne won");
-
-                        break;
-                    }
-
-                    if (charachter.HealthPoints < 0)
-                    {
-                        Console.WriteLine("PlayerOne Lost");
-
-                        streamWriter.WriteLine(charachter);
-                        streamWriter.Flush();
-
                         break;
                     }
 
@@ -74,6 +51,42 @@ namespace PlayerOne
             }
 
             Console.ReadKey();
+        }
+
+        private static (string, bool) Handle(StreamReader streamReader, StreamWriter streamWriter, Charachter charachter)
+        {
+            var message = streamReader.ReadLine();
+            var enemyCharachter = JsonConvert.DeserializeObject<Charachter>(message!)!;
+
+            var attackInformation = new AttackInformation();
+            var totalDamage = attackInformation.Damage - charachter.Armor;
+            charachter.HealthPoints -= totalDamage;
+
+            var json = JsonConvert.SerializeObject(charachter);
+
+            Console.WriteLine($"Got hit with {attackInformation.Type}!");
+            Thread.Sleep(1000);
+            Console.WriteLine($"Took {totalDamage} left {charachter.HealthPoints}");
+
+
+            if (enemyCharachter.HealthPoints < 0)
+            {
+                Console.WriteLine("PlayerOne won");
+
+                return (string.Empty, false);
+            }
+
+            if (charachter.HealthPoints < 0)
+            {
+                Console.WriteLine("PlayerOne Lost");
+
+                streamWriter.WriteLine(charachter);
+                streamWriter.Flush();
+
+                return (string.Empty, false);
+            }
+
+            return (json, true);
         }
     }
 }
