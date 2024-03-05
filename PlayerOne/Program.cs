@@ -79,7 +79,7 @@ namespace PlayerOne
                 hostResponseWriter.WriteLine("PlayerOne Won");
                 hostResponseWriter.Flush();
 
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
                 return (string.Empty, false);
             }
 
@@ -91,7 +91,7 @@ namespace PlayerOne
                 hostResponseWriter.WriteLine("PlayerOne lost");
                 hostResponseWriter.Flush();
 
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
                 return (string.Empty, false);
             }
 
