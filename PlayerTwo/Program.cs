@@ -50,7 +50,7 @@ namespace PlayerTwo
             }
             catch
             {
-
+                // pipe breaks hell goes lose, ignore
             }
 
             Console.ReadKey();

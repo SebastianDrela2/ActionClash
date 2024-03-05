@@ -47,7 +47,7 @@ namespace PlayerOne
             }
             catch
             {
-
+                // pipe breaks hell goes lose, ignore
             }
 
             Console.ReadKey();
