@@ -37,10 +37,10 @@ namespace RandomFight
 
             Console.WriteLine("Match In Progress...");
 
-            var namedPipeClientStream = new NamedPipeServerStream("GameHost");           
-            using var streamReader = new StreamReader(namedPipeClientStream);
+            var namedPipeServerStream = new NamedPipeServerStream("GameHost");           
+            using var streamReader = new StreamReader(namedPipeServerStream);
 
-            namedPipeClientStream.WaitForConnection();
+            namedPipeServerStream.WaitForConnection();
             var matchResult = streamReader.ReadLine();
             Console.WriteLine(matchResult);
 
