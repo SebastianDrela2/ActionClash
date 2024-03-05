@@ -65,9 +65,7 @@ namespace PlayerOne
             var charachterHpAfterAttack = charachter.HealthPoints;
             var totalDamage = currentCharachterHp - charachterHpAfterAttack;                   
           
-            Console.WriteLine($"Got hit with {enemyCharachter.AttackType}!");
-            Thread.Sleep(1000);
-            Console.WriteLine($"Took {totalDamage} left {charachter.HealthPoints} HP");
+            charachter.DisplayAttackResults(enemyCharachter, totalDamage);
             charachter.PrepareNewAttack();
 
             var json = JsonConvert.SerializeObject(charachter);

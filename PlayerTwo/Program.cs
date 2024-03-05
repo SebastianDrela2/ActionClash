@@ -65,12 +65,10 @@ namespace PlayerTwo
             charachter.ManageEnemyCharachter(enemyCharachter);
 
             var charachterHpAfterAttack = charachter.HealthPoints;
-            var totalDamage = currentCharachterHp - charachterHpAfterAttack;  
-            
-            Console.WriteLine($"Got hit with {enemyCharachter.AttackType}!");
-            Thread.Sleep(1000);
-            Console.WriteLine($"Took {totalDamage} left {charachter.HealthPoints} HP");
+            var totalDamage = currentCharachterHp - charachterHpAfterAttack;
 
+
+            charachter.DisplayAttackResults(enemyCharachter, totalDamage);
             charachter.PrepareNewAttack();
 
             if (enemyCharachter.HealthPoints < 0)
