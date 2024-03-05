@@ -35,11 +35,12 @@ namespace RandomFight
             Thread.Sleep(2000);
             Process.Start(processStartInfoTwo);
 
-            var namedPipeClientStream = new NamedPipeServerStream("GameHost");
-            namedPipeClientStream.WaitForConnection();
+            Console.WriteLine("Match In Progress...");
 
+            var namedPipeClientStream = new NamedPipeServerStream("GameHost");           
             using var streamReader = new StreamReader(namedPipeClientStream);
 
+            namedPipeClientStream.WaitForConnection();
             var matchResult = streamReader.ReadLine();
             Console.WriteLine(matchResult);
 

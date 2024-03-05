@@ -78,6 +78,7 @@ namespace PlayerTwo
                 namedPipeServerStream.Connect();
                 hostResponseWriter.WriteLine("PlayerTwo Won");
                 hostResponseWriter.Flush();
+                Thread.Sleep(1000);
 
                 return false;
             }
@@ -90,6 +91,7 @@ namespace PlayerTwo
                 namedPipeServerStream.Connect();
                 hostResponseWriter.WriteLine("PlayerTwo lost");
                 hostResponseWriter.Flush();
+                Thread.Sleep(1000);
 
                 return false;
             }
