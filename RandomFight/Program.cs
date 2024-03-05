@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO.Pipes;
 using System.Reflection;
 
 namespace RandomFight
@@ -34,7 +35,14 @@ namespace RandomFight
             Thread.Sleep(2000);
             Process.Start(processStartInfoTwo);
 
-            Environment.Exit(0);
+            var namedPipeClientStream = new NamedPipeServerStream("GameHost");
+            namedPipeClientStream.WaitForConnection();
+
+            using var streamReader = new StreamReader(namedPipeClientStream);
+
+            var matchResult = streamReader.ReadLine();
+            Console.WriteLine(matchResult);
+
         }
 
         private static string GetRandomFightHeadDirectory(string assemblyDirectory)

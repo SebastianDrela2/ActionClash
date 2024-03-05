@@ -73,18 +73,25 @@ namespace PlayerOne
 
             if (enemyCharachter.HealthPoints < 0)
             {
-                Console.WriteLine("PlayerOne won");
+                var namedPipeServerStream = new NamedPipeClientStream("GameHost");
+                using var hostResponseWriter = new StreamWriter(namedPipeServerStream);
 
+                hostResponseWriter.WriteLine("PlayerOne Won");
+                hostResponseWriter.Flush();
+
+                Thread.Sleep(1000);
                 return (string.Empty, false);
             }
 
             if (charachter.HealthPoints < 0)
             {
-                Console.WriteLine("PlayerOne Lost");
+                var namedPipeServerStream = new NamedPipeClientStream("GameHost");
+                using var hostResponseWriter = new StreamWriter(namedPipeServerStream);
 
-                streamWriter.WriteLine(charachter);
-                streamWriter.Flush();
+                hostResponseWriter.WriteLine("PlayerOne lost");
+                hostResponseWriter.Flush();
 
+                Thread.Sleep(1000);
                 return (string.Empty, false);
             }
 

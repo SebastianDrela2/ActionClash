@@ -72,17 +72,24 @@ namespace PlayerTwo
 
             if (enemyCharachter.HealthPoints < 0)
             {
-                Console.WriteLine("PlayerTwo won");
+                var namedPipeServerStream = new NamedPipeClientStream("GameHost");
+                using var hostResponseWriter = new StreamWriter(namedPipeServerStream);
+
+                namedPipeServerStream.Connect();
+                hostResponseWriter.WriteLine("PlayerTwo Won");
+                hostResponseWriter.Flush();
 
                 return false;
             }
 
             if (charachter.HealthPoints < 0)
             {
-                Console.WriteLine("PlayerTwo Lost");
+                var namedPipeServerStream = new NamedPipeClientStream("GameHost");
+                using var hostResponseWriter = new StreamWriter(namedPipeServerStream);
 
-                streamWriter.WriteLine(json);
-                streamWriter.Flush();
+                namedPipeServerStream.Connect();
+                hostResponseWriter.WriteLine("PlayerTwo lost");
+                hostResponseWriter.Flush();
 
                 return false;
             }
