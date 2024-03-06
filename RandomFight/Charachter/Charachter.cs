@@ -2,6 +2,8 @@
 {
     public class Charachter
     {
+        private readonly char _blackSquare = '\u25A0';
+        private readonly int _originalHp;
         public int HealthPoints;                
         public int Armor;
         public string AttackType;
@@ -13,15 +15,19 @@
 
             HealthPoints = random.Next(1, 1000);                       
             Armor = random.Next(1, 5);
+
+            _originalHp = HealthPoints;
         }
 
         public void ManageEnemyCharachter(Charachter enemyCharachter)
         {
             int totalDamage = 0;
+
             if (enemyCharachter.Damage - enemyCharachter.Armor > 0)
             {
                 totalDamage = enemyCharachter.Damage - enemyCharachter.Armor;
             }
+
             HealthPoints -= totalDamage;            
         }
 
@@ -34,12 +40,28 @@
 
         public void DisplayAttackResults(Charachter enemyCharachter, int totalDamage)
         {
+            Console.Clear();
+            Console.WriteLine($"Total Hp: {_originalHp} Armor: {Armor} ");
+            Console.WriteLine();
+
             Console.WriteLine($"Got hit with {enemyCharachter.AttackType}!");            
             Console.WriteLine($"Took {totalDamage} left {HealthPoints} HP");
 
-            Console.WriteLine();           
+            Console.WriteLine();
+            RenderHpBar();           
 
             Thread.Sleep(1000);
+        }
+
+        private void RenderHpBar()
+        {
+            var hpBarLength = HealthPoints / 10;
+
+            Console.Write("HP: ");
+            for (var i = 0; i < hpBarLength; i++)
+            {
+               Console.Write(_blackSquare);
+            }
         }
     }
 }
