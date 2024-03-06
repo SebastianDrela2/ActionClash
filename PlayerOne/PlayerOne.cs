@@ -8,6 +8,7 @@ namespace PlayerOne
     internal class PlayerOne
     {
         private readonly GameHost _gameHost = new GameHost();
+
         public void SetUpPlayer()
         {
             using var namedPipeServerStream = new NamedPipeServerStream("PlayerOne");

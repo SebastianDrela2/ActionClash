@@ -7,6 +7,7 @@ namespace RandomFight.Match
     public class GameHost
     {
         private const string _binDebugNetPath = @"bin\Debug\net8.0";
+
         public void StartMatch()
         {
             var assemblyDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);

@@ -27,7 +27,6 @@ namespace PlayerTwo
 
         private void StartPlayer(NamedPipeClientStream namedPipeClientStream, NamedPipeServerStream namedPipeServerStream)
         {
-
             try
             {
                 using var streamReader = new StreamReader(namedPipeClientStream);
