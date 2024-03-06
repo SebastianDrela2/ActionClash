@@ -20,6 +20,14 @@ namespace PlayerTwo
 
             Console.WriteLine("Connected.");
 
+            StartPlayer(namedPipeClientStream, namedPipeServerStream);
+
+            Console.ReadKey();
+        }
+
+        private void StartPlayer(NamedPipeClientStream namedPipeClientStream, NamedPipeServerStream namedPipeServerStream)
+        {
+
             try
             {
                 using var streamReader = new StreamReader(namedPipeClientStream);
@@ -47,8 +55,6 @@ namespace PlayerTwo
             {
                 // pipe breaks hell goes lose, ignore
             }
-
-            Console.ReadKey();
         }
 
         private bool Handle(StreamReader streamReader, Charachter charachter)
