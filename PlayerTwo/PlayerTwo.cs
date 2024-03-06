@@ -53,7 +53,7 @@ namespace PlayerTwo
                     }
                 }
             }
-            catch
+            catch (IOException)
             {
                 // pipe breaks hell goes lose, ignore
             }
