@@ -24,7 +24,7 @@ namespace PlayerOne
 
             StartPlayer(namedPipeClientStream, namedPipeServerStream);
 
-            Console.ReadKey();
+            Environment.Exit(0);
         }
 
         private void StartPlayer(NamedPipeClientStream namedPipeClientStream, NamedPipeServerStream namedPipeServerStream)

@@ -2,6 +2,7 @@
 using RandomFight.Charachter;
 using RandomFight.Match;
 using System.IO.Pipes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PlayerTwo
 {
@@ -24,7 +25,7 @@ namespace PlayerTwo
 
             StartPlayer(namedPipeClientStream, namedPipeServerStream);
 
-            Console.ReadKey();
+            Environment.Exit(0);
         }
 
         private void StartPlayer(NamedPipeClientStream namedPipeClientStream, NamedPipeServerStream namedPipeServerStream)
