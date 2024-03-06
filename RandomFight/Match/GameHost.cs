@@ -70,7 +70,7 @@ namespace RandomFight.Match
 
         public void AnnounceInProgress()
         {
-
+            Console.WriteLine("Match In Progress...");
         }
     }
 }

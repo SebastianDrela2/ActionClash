@@ -8,15 +8,12 @@ namespace RandomFight
         static void Main()
         {          
             var gameHost = new GameHost();
-            gameHost.StartMatch();
 
-            Console.WriteLine("Match In Progress...");
+            gameHost.StartMatch();           
+            gameHost.AnnounceInProgress();
 
-            var namedPipeServerStream = new NamedPipeServerStream("GameHost");           
-            using var streamReader = new StreamReader(namedPipeServerStream);
+            var matchResult = gameHost.GetMatchResult();
 
-            namedPipeServerStream.WaitForConnection();
-            var matchResult = streamReader.ReadLine();
             Console.WriteLine(matchResult);
 
         }       
