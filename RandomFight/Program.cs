@@ -1,5 +1,4 @@
 ﻿using RandomFight.Match;
-using System.IO.Pipes;
 
 namespace RandomFight
 {
