@@ -34,9 +34,12 @@
 
         public void DisplayAttackResults(Charachter enemyCharachter, int totalDamage)
         {
-            Console.WriteLine($"Got hit with {enemyCharachter.AttackType}!");
-            Thread.Sleep(1000);
+            Console.WriteLine($"Got hit with {enemyCharachter.AttackType}!");            
             Console.WriteLine($"Took {totalDamage} left {HealthPoints} HP");
+
+            Console.WriteLine();           
+
+            Thread.Sleep(1000);
         }
     }
 }

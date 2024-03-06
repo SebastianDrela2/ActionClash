@@ -10,6 +10,8 @@ namespace PlayerTwo
         private readonly GameHost _gameHost = new GameHost();
         public void SetUpPlayer()
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+
             using var namedPipeServerStream = new NamedPipeServerStream("PlayerTwo");
             using var namedPipeClientStream = new NamedPipeClientStream("PlayerOne");
 

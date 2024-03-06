@@ -11,6 +11,8 @@ namespace PlayerOne
 
         public void SetUpPlayer()
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+
             using var namedPipeServerStream = new NamedPipeServerStream("PlayerOne");
             using var namedPipeClientStream = new NamedPipeClientStream("PlayerTwo");
 
