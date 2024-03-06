@@ -54,6 +54,9 @@ namespace RandomFight.Match
             namedPipeClientStream.Connect();
             hostResponseWriter.WriteLine(message);
             hostResponseWriter.Flush();
+
+
+            // before we destroy client stream, wait for server to get the result.
             Thread.Sleep(2000);
         }
 
