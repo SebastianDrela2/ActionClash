@@ -34,7 +34,7 @@ namespace PlayerTwo
                 using var streamReader = new StreamReader(namedPipeClientStream);
                 using var streamWriter = new StreamWriter(namedPipeServerStream);
 
-                var charachter = new Charachter();
+                var charachter = new Charachter("PlayerTwo");
                 Console.WriteLine($"PlayerTwo HP: {charachter.HealthPoints} Armor: {charachter.Armor}");
 
                 while (true)

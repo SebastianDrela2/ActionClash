@@ -1,4 +1,5 @@
 ﻿using RandomFight.Match;
+using System.Diagnostics;
 
 namespace RandomFight
 {
@@ -13,9 +14,17 @@ namespace RandomFight
             gameHost.StartMatch();           
             gameHost.AnnounceInProgress();
 
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
             var matchResult = gameHost.GetMatchResult();
 
-            Console.WriteLine(matchResult);
+            stopWatch.Stop();
+
+            var matchTimeInSeconds = (int) stopWatch.Elapsed.TotalSeconds;
+
+            Console.WriteLine($"Match lasted {matchTimeInSeconds} seconds.");
+            Console.WriteLine(matchResult);            
 
         }       
     }

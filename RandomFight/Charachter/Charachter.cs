@@ -4,12 +4,14 @@
     {
         private readonly char _blackSquare = '\u25A0';
         private readonly int _originalHp;
+        private readonly string _playerName;
+
         public int HealthPoints;                
         public int Armor;
         public string AttackType;
         public int Damage;
 
-        public Charachter()
+        public Charachter(string playerName)
         {
             var random = new Random();
 
@@ -17,6 +19,7 @@
             Armor = random.Next(1, 5);
 
             _originalHp = HealthPoints;
+            _playerName = playerName;
         }
 
         public void ManageEnemyCharachter(Charachter enemyCharachter)
@@ -41,6 +44,7 @@
         public void DisplayAttackResults(Charachter enemyCharachter, int totalDamage)
         {
             Console.Clear();
+            Console.WriteLine($"PlayerName: {_playerName}");
             Console.WriteLine($"Total Hp: {_originalHp} Armor: {Armor} ");
             Console.WriteLine();
 
