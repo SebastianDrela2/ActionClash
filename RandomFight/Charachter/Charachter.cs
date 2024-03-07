@@ -45,7 +45,8 @@
         {
             Console.Clear();
             Console.WriteLine($"PlayerName: {_playerName}");
-            Console.WriteLine($"Total Hp: {_originalHp} Armor: {Armor} ");
+            Console.WriteLine($"Total Hp: {_originalHp}");
+            Console.WriteLine($"Armor: {Armor} ");
             Console.WriteLine();
 
             Console.WriteLine($"Got hit with {enemyCharachter.AttackType}!");            
