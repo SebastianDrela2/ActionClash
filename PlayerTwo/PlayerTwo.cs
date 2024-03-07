@@ -2,7 +2,6 @@
 using RandomFight.Charachter;
 using RandomFight.Match;
 using System.IO.Pipes;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace PlayerTwo
 {
