@@ -53,7 +53,7 @@ namespace PlayerTwo
                     }
                 }
             }
-            catch (IOException)
+            catch (Exception ex) when (_gameHost.IsPipeBrokenRelatedException(ex))
             {
                 // pipe breaks hell goes lose, ignore
             }

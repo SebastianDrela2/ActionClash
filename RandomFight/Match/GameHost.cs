@@ -47,6 +47,11 @@ namespace RandomFight.Match
             return Directory.GetParent(assemblyDirectory)!.FullName;
         }
 
+        public bool IsPipeBrokenRelatedException(Exception ex)
+        {
+            return ex is IOException || ex is ArgumentNullException;
+        }
+
         public void SendMatchResult(string message)
         {
             var namedPipeClientStream = new NamedPipeClientStream("GameHost");

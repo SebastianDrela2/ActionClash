@@ -51,10 +51,15 @@ namespace PlayerOne
                     streamWriter.Flush();
                 }
             }
-            catch (IOException)
+            catch (Exception ex) when (_gameHost.IsPipeBrokenRelatedException(ex))
             {
                 // pipe breaks hell goes lose, ignore
             }
+        }
+
+        private static bool IsRelatedToBrokenPipe(Exception ex)
+        {
+            return ex is IOException || ex is ArgumentNullException;
         }
 
         private (string, bool) Handle(StreamReader streamReader, Charachter charachter)
