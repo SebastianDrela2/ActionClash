@@ -2,6 +2,16 @@
 {
     public class AttackInformation
     {
+        private readonly Dictionary<string, int> _embeddedAttacks = new Dictionary<string, int>()
+        {
+            { "Rock", 5 },
+            { "Snowball", 10 },
+            { "FireBall", 20 },
+            { "Meteor", 25 },
+            { "Sword", 40 },
+            { "DarkMagic", 60 }
+        };
+
         public readonly string Type;
         public readonly int Damage;
 
@@ -12,17 +22,7 @@
             Type = attackInformation.Key;
             Damage = attackInformation.Value;
         }
-
-        private readonly Dictionary<string, int> _embeddedAttacks = new Dictionary<string, int>()
-        {
-            { "Rock", 5 },
-            { "Snowball", 10 },
-            { "FireBall", 20 },
-            { "Meteor", 25 },
-            { "Sword", 40 },
-            { "DarkMagic", 60 }       
-        };
-
+        
         private KeyValuePair<string,int> GetAttackInformation()
         {
             var random = new Random();
