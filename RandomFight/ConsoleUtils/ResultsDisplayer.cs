@@ -29,9 +29,7 @@ namespace RandomFight.ConsoleUtils
             
             Console.WriteLine($"Got hit with {_enemyCharachter.AttackType}!");
             Console.WriteLine($"Took {_turnStats.TotalDamage} left {_charachter.HealthPoints} HP");
-
-            Console.WriteLine();
-
+          
             RenderHpBar();
             DisplaySpecialRoll();
         }
@@ -49,13 +47,16 @@ namespace RandomFight.ConsoleUtils
         }
 
         private void RenderHpBar()
-        {            
+        {
+            Console.WriteLine();
             Console.Write("HP: ");
 
             for (var i = 0; i < _hpBarLength; i++)
             {
                 Console.Write(_blackSquare);
             }
+
+            Console.WriteLine();
         }
     }
 }
