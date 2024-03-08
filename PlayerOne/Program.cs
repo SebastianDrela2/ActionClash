@@ -4,8 +4,9 @@
     {       
         static void Main()
         {
-            var playerOne = new PlayerOne();
             ConsoleHelper.SetCurrentFont("Comic Sans", 20);
+
+            var playerOne = new PlayerOne();            
             playerOne.SetUpPlayer();
         }              
     }
