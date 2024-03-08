@@ -20,11 +20,11 @@
         {
             var random = new Random();
 
-            HealthPoints = random.Next(1, 1000);                       
-            Armor = random.Next(1, 5);
-
-            _originalHp = HealthPoints;            
+            _originalHp = HealthPoints;
             _playerName = playerName;
+
+            HealthPoints = random.Next(1, 1000);                       
+            Armor = random.Next(1, 5);           
         }
 
         public void ManageEnemyCharachter(Charachter enemyCharachter)
