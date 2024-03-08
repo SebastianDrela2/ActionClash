@@ -79,7 +79,6 @@ namespace PlayerOne
 
             var json = JsonConvert.SerializeObject(charachter);
 
-
             if (enemyCharachter.HealthPoints < 0)
             {
                 _gameHost.SendMatchResult("PlayerOne Won");
