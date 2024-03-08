@@ -74,8 +74,8 @@ namespace PlayerOne
             var charachterHpAfterAttack = charachter.HealthPoints;
             var totalDamage = currentCharachterHp - charachterHpAfterAttack;
 
-            charachter.DisplayAttackResults(enemyCharachter, totalDamage);
-            charachter.PrepareNewAttack();
+            charachter.TakeTurn();
+            charachter.DisplayTurnResults(enemyCharachter, totalDamage);          
 
             var json = JsonConvert.SerializeObject(charachter);
 

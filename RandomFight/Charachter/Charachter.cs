@@ -3,8 +3,11 @@
     public class Charachter
     {
         private readonly char _blackSquare = '\u25A0';
-        private readonly int _originalHp;
+        private readonly int _originalHp;        
+        private readonly int _healAmmount;        
         private readonly string _playerName;
+
+        private int _trackedHp;
 
         public int HealthPoints;                
         public int Armor;
@@ -19,6 +22,7 @@
             Armor = random.Next(1, 5);
 
             _originalHp = HealthPoints;
+            _healAmmount = HealthPoints / 20;
             _playerName = playerName;
         }
 
@@ -34,20 +38,45 @@
             HealthPoints -= totalDamage;            
         }
 
-        public void PrepareNewAttack()
+        public void TakeTurn()
+        {
+            var random = new Random();
+            var number = random.Next(1, 10);
+
+            _trackedHp = HealthPoints;
+
+            if (number == 1)
+            {
+                Heal();              
+            }
+
+            PrepareNewAttack();            
+        }
+
+        private void PrepareNewAttack()
         {
             var attackInformation = new AttackInformation();
             AttackType = attackInformation.Type;
             Damage = attackInformation.Damage;
         }
 
-        public void DisplayAttackResults(Charachter enemyCharachter, int totalDamage)
+        private void Heal()
+        {
+            HealthPoints += _healAmmount;
+        }
+
+        public void DisplayTurnResults(Charachter enemyCharachter, int totalDamage)
         {
             Console.Clear();
             Console.WriteLine($"PlayerName: {_playerName}");
             Console.WriteLine($"Total Hp: {_originalHp}");
             Console.WriteLine($"Armor: {Armor} ");
             Console.WriteLine();
+
+            if (_trackedHp < HealthPoints)
+            {
+                Console.WriteLine($"Healed for {_healAmmount}");
+            }
 
             Console.WriteLine($"Got hit with {enemyCharachter.AttackType}!");            
             Console.WriteLine($"Took {totalDamage} left {HealthPoints} HP");

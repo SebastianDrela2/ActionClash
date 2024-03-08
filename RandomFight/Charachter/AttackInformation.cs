@@ -18,8 +18,9 @@
             { "Rock", 5 },
             { "Snowball", 10 },
             { "FireBall", 20 },
+            { "Meteor", 25 },
             { "Sword", 40 },
-            { "DarkMagic", 60 },       
+            { "DarkMagic", 60 }       
         };
 
         private KeyValuePair<string,int> GetAttackInformation()

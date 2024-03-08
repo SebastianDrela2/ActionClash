@@ -69,8 +69,8 @@ namespace PlayerTwo
             var charachterHpAfterAttack = charachter.HealthPoints;
             var totalDamage = currentCharachterHp - charachterHpAfterAttack;
 
-            charachter.DisplayAttackResults(enemyCharachter, totalDamage);
-            charachter.PrepareNewAttack();
+            charachter.TakeTurn();
+            charachter.DisplayTurnResults(enemyCharachter, totalDamage);            
 
             if (enemyCharachter.HealthPoints < 0)
             {
