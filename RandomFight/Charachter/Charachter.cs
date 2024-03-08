@@ -2,7 +2,7 @@
 {
     public class Charachter
     {
-        private const int _healAmmount = 20;
+        private const int HealAmmount = 20;
 
         private readonly char _blackSquare = '\u25A0';
         private readonly int _originalHp;          
@@ -66,7 +66,7 @@
             Damage = attackInformation.Damage;
         }
 
-        private void Heal() => HealthPoints += _healAmmount;
+        private void Heal() => HealthPoints += HealAmmount;
 
         private void IncreaseArmor() => Armor += 1;
 
