@@ -5,8 +5,7 @@
        
         public string PlayerName;
         public int OriginalHp;
-        public int HealthPoints;
-        public int HealAmmount = 20;
+        public int HealthPoints;        
         public int Armor;
         public string AttackType;
         public int Damage;
@@ -59,7 +58,7 @@
             Damage = attackInformation.Damage;
         }
 
-        private void Heal() => HealthPoints += HealAmmount;
+        private void Heal() => HealthPoints += 20;
         private void IncreaseArmor() => Armor += 1;       
     }
 }
