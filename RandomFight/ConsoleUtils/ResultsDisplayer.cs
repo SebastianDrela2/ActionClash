@@ -38,7 +38,7 @@ namespace RandomFight.ConsoleUtils
         {
             if (_turnStats.TrackedHp < _charachter.HealthPoints)
             {
-                Console.WriteLine($"Healed for {_charachter.HealAmmount}");
+                Console.WriteLine($"Healed for 20!");
             }
             else if (_turnStats.TrackedArmor < _charachter.Armor)
             {
