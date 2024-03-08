@@ -1,4 +1,4 @@
-﻿namespace RandomFight.Charachter
+﻿namespace RandomFight.Player
 {
     public class AttackInformation
     {

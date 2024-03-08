@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
-using RandomFight.Charachter;
+using RandomFight.ConsoleUtils;
 using RandomFight.Match;
+using RandomFight.Player;
 using System.IO.Pipes;
 
 namespace PlayerOne
@@ -74,8 +75,16 @@ namespace PlayerOne
             var charachterHpAfterAttack = charachter.HealthPoints;
             var totalDamage = currentCharachterHp - charachterHpAfterAttack;
 
+            var trackedHp = charachter.HealthPoints;
+            var trackedArmor = charachter.Armor;
+
             charachter.TakeTurn();
-            charachter.DisplayTurnResults(enemyCharachter, totalDamage);          
+
+            var turnStats = new TurnStats(totalDamage, trackedHp, trackedArmor);
+            var resultsDisplayer = new ResultsDisplayer(charachter, enemyCharachter, turnStats);
+
+            resultsDisplayer.DisplayTurnResults();
+                   
 
             var json = JsonConvert.SerializeObject(charachter);
 
