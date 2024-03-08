@@ -2,12 +2,14 @@
 {
     public class Charachter
     {
+        private const int _healAmmount = 20;
+
         private readonly char _blackSquare = '\u25A0';
-        private readonly int _originalHp;        
-        private readonly int _healAmmount;        
+        private readonly int _originalHp;          
         private readonly string _playerName;
 
         private int _trackedHp;
+        private int _trackedArmor;
 
         public int HealthPoints;                
         public int Armor;
@@ -21,8 +23,7 @@
             HealthPoints = random.Next(1, 1000);                       
             Armor = random.Next(1, 5);
 
-            _originalHp = HealthPoints;
-            _healAmmount = HealthPoints / 20;
+            _originalHp = HealthPoints;            
             _playerName = playerName;
         }
 
@@ -44,10 +45,15 @@
             var number = random.Next(1, 10);
 
             _trackedHp = HealthPoints;
+            _trackedArmor = Armor;
 
             if (number == 1)
             {
                 Heal();              
+            }
+            else if (number == 2)
+            {
+                IncreaseArmor();
             }
 
             PrepareNewAttack();            
@@ -60,10 +66,9 @@
             Damage = attackInformation.Damage;
         }
 
-        private void Heal()
-        {
-            HealthPoints += _healAmmount;
-        }
+        private void Heal() => HealthPoints += _healAmmount;
+
+        private void IncreaseArmor() => Armor += 1;
 
         public void DisplayTurnResults(Charachter enemyCharachter, int totalDamage)
         {
@@ -73,10 +78,7 @@
             Console.WriteLine($"Armor: {Armor} ");
             Console.WriteLine();
 
-            if (_trackedHp < HealthPoints)
-            {
-                Console.WriteLine($"Healed for {_healAmmount}");
-            }
+            DisplaySpecialRoll();
 
             Console.WriteLine($"Got hit with {enemyCharachter.AttackType}!");            
             Console.WriteLine($"Took {totalDamage} left {HealthPoints} HP");
@@ -85,6 +87,18 @@
             RenderHpBar();           
 
             Thread.Sleep(1000);
+        }
+
+        private void DisplaySpecialRoll()
+        {
+            if (_trackedHp < HealthPoints)
+            {
+                Console.WriteLine($"Healed for {_healAmmount}");
+            }
+            else if (_trackedArmor < Armor)
+            {
+                Console.WriteLine($"Increased armor by 1!");
+            }
         }
 
         private void RenderHpBar()
