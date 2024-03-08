@@ -93,7 +93,7 @@
         {
             if (_trackedHp < HealthPoints)
             {
-                Console.WriteLine($"Healed for {_healAmmount}");
+                Console.WriteLine($"Healed for {HealAmmount}");
             }
             else if (_trackedArmor < Armor)
             {
