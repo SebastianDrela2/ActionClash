@@ -56,7 +56,9 @@
                 IncreaseArmor();
             }
 
-            PrepareNewAttack();            
+            PrepareNewAttack();
+
+            Thread.Sleep(1000);
         }
 
         private void PrepareNewAttack()
@@ -84,9 +86,7 @@
             Console.WriteLine($"Took {totalDamage} left {HealthPoints} HP");
 
             Console.WriteLine();
-            RenderHpBar();           
-
-            Thread.Sleep(1000);
+            RenderHpBar();                       
         }
 
         private void DisplaySpecialRoll()
