@@ -2,8 +2,10 @@
 
 public static class ConsoleHelper
 {
+    private static IntPtr ConsoleOutputHandle => GetStdHandle(StandardOutputHandle);
+
     private const int FixedWidthTrueType = 54;
-    private const int StandardOutputHandle = -11;
+    private const int StandardOutputHandle = -11;   
 
     [DllImport("kernel32.dll", SetLastError = true)]
     internal static extern IntPtr GetStdHandle(int nStdHandle);
@@ -11,9 +13,7 @@ public static class ConsoleHelper
     [return: MarshalAs(UnmanagedType.Bool)]
     [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
     internal static extern bool SetCurrentConsoleFontEx(IntPtr hConsoleOutput, bool MaximumWindow, ref FontInfo ConsoleCurrentFontEx);
-
-    private static IntPtr ConsoleOutputHandle => GetStdHandle(StandardOutputHandle);
-
+   
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     public struct FontInfo
     {
@@ -28,7 +28,7 @@ public static class ConsoleHelper
         public string FontName;
     }
 
-    public static void SetCurrentFont(string font, short fontSize = 0)
+    public static void SetCurrentFont(string font, short fontSize)
     {               
         var set = new FontInfo
         {
