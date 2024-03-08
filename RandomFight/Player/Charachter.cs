@@ -54,12 +54,12 @@
         private void PrepareNewAttack()
         {
             var attackInformation = new AttackInformation();
+
             AttackType = attackInformation.Type;
             Damage = attackInformation.Damage;
         }
 
         private void Heal() => HealthPoints += HealAmmount;
-
         private void IncreaseArmor() => Armor += 1;       
     }
 }
