@@ -15,7 +15,8 @@
             var random = new Random(); 
             
             PlayerName = playerName;
-            HealthPoints = random.Next(1, 1000);                       
+            HealthPoints = random.Next(1, 1000);
+            OriginalHp = HealthPoints;
             Armor = random.Next(1, 5);           
         }
 
