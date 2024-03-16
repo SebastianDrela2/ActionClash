@@ -57,12 +57,7 @@ namespace PlayerOne
                 // pipe breaks hell goes lose, ignore
             }
         }
-
-        private static bool IsRelatedToBrokenPipe(Exception ex)
-        {
-            return ex is IOException || ex is ArgumentNullException;
-        }
-
+        
         private (string, bool) Handle(StreamReader streamReader, Charachter charachter)
         {
             var message = streamReader.ReadLine();
