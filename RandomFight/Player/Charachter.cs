@@ -24,9 +24,9 @@
         {
             int totalDamage = 0;
 
-            if (enemyCharachter.Damage - enemyCharachter.Armor > 0)
+            if (enemyCharachter.Damage - Armor > 0)
             {
-                totalDamage = enemyCharachter.Damage - enemyCharachter.Armor;
+                totalDamage = enemyCharachter.Damage - Armor;
             }
 
             HealthPoints -= totalDamage;            
