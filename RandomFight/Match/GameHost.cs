@@ -7,6 +7,7 @@ namespace RandomFight.Match
     public class GameHost
     {
         private const string _binDebugNetPath = @"bin\Debug\net8.0";
+        private bool _receivedMatchResult;
 
         public void StartMatch()
         {
@@ -61,9 +62,7 @@ namespace RandomFight.Match
             hostResponseWriter.WriteLine(message);
             hostResponseWriter.Flush();
 
-
-            // before we destroy client stream, wait for server to get the result.
-            Thread.Sleep(2000);
+            WaitForResultToBeReceived();
         }
 
         public string GetMatchResult()
@@ -73,6 +72,7 @@ namespace RandomFight.Match
 
             namedPipeServerStream.WaitForConnection();
             var matchResult = streamReader.ReadLine();
+            _receivedMatchResult = true;
 
             return matchResult!;
         }
@@ -80,6 +80,14 @@ namespace RandomFight.Match
         public void AnnounceInProgress()
         {
             Console.WriteLine("Match In Progress...");
+        }
+
+        private void WaitForResultToBeReceived()
+        {
+            while(!_receivedMatchResult)
+            {
+                Thread.Sleep(200);
+            }
         }
     }
 }
