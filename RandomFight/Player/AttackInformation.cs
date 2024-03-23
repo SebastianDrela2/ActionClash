@@ -2,6 +2,9 @@
 {
     public class AttackInformation
     {
+        public readonly string Type;
+        public readonly int Damage;
+
         private readonly Dictionary<string, int> _embeddedAttacks = new Dictionary<string, int>()
         {
             { "Rock", 5 },
@@ -11,10 +14,7 @@
             { "Sword", 40 },
             { "DarkMagic", 60 }
         };
-
-        public readonly string Type;
-        public readonly int Damage;
-
+        
         public AttackInformation()
         {
             var attackInformation = GetAttackInformation();
