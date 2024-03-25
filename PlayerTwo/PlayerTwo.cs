@@ -80,6 +80,12 @@ namespace PlayerTwo
 
             resultsDisplayer.DisplayTurnResults();
 
+            return GetHandleResult(charachter, enemyCharachter);
+        }
+        
+
+        private bool GetHandleResult(Charachter charachter, Charachter enemyCharachter)
+        {
             if (enemyCharachter.HealthPoints < 0)
             {
                 _gameHost.SendMatchResult("PlayerTwo Won");
@@ -93,6 +99,6 @@ namespace PlayerTwo
             }
 
             return true;
-        }       
+        }
     }
 }
